@@ -1,0 +1,23 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor_input {
+  border: none;
+  height: 18px;
+  padding: 12px;
+  font-size: 18px;
+  outline: none;
+}
+
+.editor_textarea {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  resize: none;
+  overflow-y: hidden;
+  outline: none;
+  height: auto;
+  height: 100%;
+}
