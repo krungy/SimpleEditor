@@ -1,14 +1,9 @@
-import styles from '../assets/css/Editor.module.css';
+import styles from '../../assets/css/Editor.module.css';
 
 export default function Editor({ $target }) {
   const $editor = document.createElement('div');
   $editor.className = styles.editor;
   $target.appendChild($editor);
-
-  const resize = (obj) => {
-    obj.style.height = '1px';
-    obj.style.height = 12 + obj.scrollHeight + 'px';
-  };
 
   this.render = () => {
     $editor.innerHTML = `
@@ -19,13 +14,13 @@ export default function Editor({ $target }) {
 
   this.render();
 
-  $editor.addEventListener('keyup', (e) => {
-    const { target } = e;
+  // $editor.addEventListener('keyup', (e) => {
+  //   const { target } = e;
 
-    if (target.className === styles.editor_textarea) {
-      resize(target);
-    }
-  });
+  //   if (target.className === styles.editor_textarea) {
+  //     resize(target);
+  //   }
+  // });
 
   // $editor.addEventListener('keydown', (e) => {
   //   const { target } = e;
