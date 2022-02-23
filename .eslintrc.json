@@ -1,0 +1,7 @@
+{
+  "extends": ["prettier"],
+  "parser": "babel-eslint",
+  "rules": {
+    "import/no-anonymous-default-export": "off"
+  }
+}
