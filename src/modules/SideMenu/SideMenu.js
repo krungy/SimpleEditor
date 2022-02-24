@@ -7,7 +7,7 @@ export default function SideMenu({ $target }) {
 
   this.render = () => {
     $sidemenu.innerHTML = `
-      <h3>개인 페이지</h3>
+      <h3 class=${styles.side_header}>개인 페이지</h3>
     `;
   };
 
