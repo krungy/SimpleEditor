@@ -1,0 +1,13 @@
+.document_add_button {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.document_add_button:hover {
+  color: #fff;
+  background-color: #000;
+}
