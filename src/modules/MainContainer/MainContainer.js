@@ -2,7 +2,11 @@ import styles from '../../assets/css/MainContainer.module.css';
 import DefaultContainer from './DefaultContainer.js';
 import Editor from './Editor.js';
 
-export default function MainContainer({ $target, selectedDocument }) {
+export default function MainContainer({
+  $target,
+  selectedDocument,
+  onEditing,
+}) {
   const $mainContainer = document.createElement('div');
   $mainContainer.className = styles.main_container;
   $target.appendChild($mainContainer);
@@ -15,18 +19,18 @@ export default function MainContainer({ $target, selectedDocument }) {
 
   const editor = new Editor({
     $target: $mainContainer,
+    initialState: this.state,
+    onEditing: (post) => onEditing(post),
   });
 
   this.setState = (nextState) => {
-    console.log(nextState);
     if (nextState === null) {
       defaultContainer.render();
       editor.remove();
     } else {
       defaultContainer.remove();
-      editor.render();
+      editor.setState(nextState);
     }
-
     this.state = nextState;
   };
 }

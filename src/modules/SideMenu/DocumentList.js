@@ -25,9 +25,11 @@ export default function DocumentList({
           .map(
             ({ id, title }) => `
           <li class=${styles.list_item} data-id=${id}>
-            ${title}
+            ${title ? title : '제목 없음'}
             <div class=${styles.item_buttonList}>
-              <button class=${styles.item_button} data-id="deleteDocument">-</button>
+              <button class=${
+                styles.item_button
+              } data-id="deleteDocument">-</button>
             </div>
           </li>
           
