@@ -8,9 +8,9 @@ export default function App({ $target }) {
   $target.className = styles.app;
 
   this.state = {
+    selectedDocument: null,
     isLoading: false,
     documentList: getItem('documents', []),
-    selectedDocument: null,
   };
 
   const sideMenu = new SideMenu({
@@ -44,22 +44,26 @@ export default function App({ $target }) {
       fetchRequests();
     },
     onSelectDocument: (selectedId) => {
-      const selectedDocument = this.state.documentList.filter(
+      const selectDocument = this.state.documentList.filter(
         (item) => item.id === selectedId,
       );
-      this.state.selectedDocument = selectedDocument[0];
+      this.setState({
+        ...this.state,
+        selectedDocument: selectDocument[0],
+      });
     },
   });
 
   const mainContainer = new MainContainer({
     $target,
-    selectedDocument,
+    selectedDocument: this.state.selectedDocument,
   });
 
   this.setState = (nextState) => {
     this.state = nextState;
 
     sideMenu.setState(this.state.documentList);
+    mainContainer.setState(this.state.selectedDocument);
   };
 
   const fetchRequests = () => {

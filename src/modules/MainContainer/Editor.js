@@ -10,9 +10,12 @@ export default function Editor({ $target }) {
       <input class=${styles.editor_input} type='text' placeholder='제목을 입력하세요.' />
       <textarea class=${styles.editor_textarea} placeholder='내용을 입력하세요.'></textarea>
     `;
+    $target.appendChild($editor);
   };
 
-  this.render();
+  this.remove = () => {
+    $editor.remove();
+  };
 
   // $editor.addEventListener('keyup', (e) => {
   //   const { target } = e;
