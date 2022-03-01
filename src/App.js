@@ -10,6 +10,7 @@ export default function App({ $target }) {
   this.state = {
     isLoading: false,
     documentList: getItem('documents', []),
+    selectedDocument: null,
   };
 
   const sideMenu = new SideMenu({
@@ -42,11 +43,17 @@ export default function App({ $target }) {
       setItem('documents', newDocumentList);
       fetchRequests();
     },
+    onSelectDocument: (selectedId) => {
+      const selectedDocument = this.state.documentList.filter(
+        (item) => item.id === selectedId,
+      );
+      this.state.selectedDocument = selectedDocument[0];
+    },
   });
 
   const mainContainer = new MainContainer({
     $target,
-    // selectedDocument,
+    selectedDocument,
   });
 
   this.setState = (nextState) => {

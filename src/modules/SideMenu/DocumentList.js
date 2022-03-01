@@ -5,6 +5,7 @@ export default function DocumentList({
   initialState,
   onDocumentAdd,
   onDocumentDelete,
+  onSelectDocument,
 }) {
   const $documentList = document.createElement('div');
   $target.appendChild($documentList);
@@ -43,13 +44,20 @@ export default function DocumentList({
   this.render();
 
   $documentList.addEventListener('click', (e) => {
-    if (e.target.closest('button').dataset.id === 'newDocument') {
-      onDocumentAdd();
+    e.stopPropagation();
+    if (e.target.tagName === 'LI') {
+      const $documentTarget = e.target.closest('li').dataset.id;
+      onSelectDocument($documentTarget);
     }
-    if (e.target.closest('button').dataset.id === 'deleteDocument') {
+    if (e.target.dataset.id === 'newDocument') {
+      onDocumentAdd();
+      return;
+    }
+    if (e.target.dataset.id === 'deleteDocument') {
       const $documentTarget = e.target.closest('li').dataset.id;
 
       onDocumentDelete($documentTarget);
+      return;
     }
   });
 }

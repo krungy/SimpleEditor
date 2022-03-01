@@ -6,6 +6,7 @@ export default function SideMenu({
   initialState,
   onDocumentAdd,
   onDocumentDelete,
+  onSelectDocument,
 }) {
   const $sidemenu = document.createElement('div');
   $sidemenu.className = styles.sidemenu;
@@ -23,6 +24,7 @@ export default function SideMenu({
     initialState: this.state,
     onDocumentAdd: () => onDocumentAdd(),
     onDocumentDelete: (selectedId) => onDocumentDelete(selectedId),
+    onSelectDocument: (selectedId) => onSelectDocument(selectedId),
   });
 
   this.setState = (nextState) => {
