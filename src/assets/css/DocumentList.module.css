@@ -1,3 +1,39 @@
+.side_header {
+  font-size: 12px;
+  margin: 12px 8px;
+  color: #8c8c8c;
+}
+
+.side_list {
+  margin: 12px 0 8px 0;
+}
+
+.list_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 8px;
+}
+
+.list_item:hover {
+  background-color: #e8e7e4;
+}
+
+.item_buttonList {
+  display: none;
+}
+
+.list_item:hover .item_buttonList {
+  display: block;
+}
+
+.item_button {
+  cursor: pointer;
+}
+
 .document_add_button {
   width: 100%;
   background-color: rgba(0, 0, 0, 0);
@@ -8,6 +44,6 @@
 }
 
 .document_add_button:hover {
-  color: #fff;
-  background-color: #000;
+  /* color: #fff; */
+  background-color: #e8e7e4;
 }

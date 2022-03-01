@@ -1,40 +1,48 @@
-import { setItem } from '../../storage';
-import { initialDocumentState } from '../../utils/constants.js';
 import styles from '../../assets/css/DocumentList.module.css';
 
-export default function DocumentList({ $target, initialState }) {
+export default function DocumentList({ $target, initialState, onDocumentAdd }) {
   const $documentList = document.createElement('div');
   $target.appendChild($documentList);
 
   this.state = initialState;
+  console.log(this.state);
+
   this.setState = (nextState) => {
     this.state = nextState;
     this.render();
   };
 
-  // const handleDocumentList = (list) =>
-  //   list.map(({ title }, index) => return (<div key={index}>{title}</div>));
+  console.log(this.state);
 
   this.render = () => {
     $documentList.innerHTML = `
-      <div>
-        ${handleDocumentList}
-      </div>
-      <button class=${styles.document_add_button}>+</button>
+      <h3 class=${styles.side_header}>개인 페이지</h3>
+      <ul class=${styles.side_list}>
+        ${this.state
+          .map(
+            ({ id, title }) => `
+          <li class=${styles.list_item} data-id=${id}>
+            ${title}
+            <div class=${styles.item_buttonList}>
+              <button class=${styles.item_button}>-</button>
+            </div>
+          </li>
+          
+        `,
+          )
+          .join('')}
+      </ul>
+      <button class=${
+        styles.document_add_button
+      } data-id='newDocument'>+</button>
     `;
   };
 
+  this.render();
+
   $documentList.addEventListener('click', (e) => {
-    // e.target 더 정확한걸로 수정 필요
-    if (e.target.tagName === 'BUTTON') {
-      const newItem = initialDocumentState;
-      newItem.id = uuid;
-      console.log(newItem);
-      this.setState([...this.state, newItem]);
-      console.log(this.state);
-      setItem('documents', this.state);
+    if (e.target.closest('button').dataset.id === 'newDocument') {
+      onDocumentAdd();
     }
   });
-
-  this.render();
 }

@@ -1,20 +1,35 @@
+import { v4 } from 'uuid';
 import styles from './assets/css/App.module.css';
 import MainContainer from './modules/MainContainer/MainContainer.js';
 import SideMenu from './modules/SideMenu/SideMenu.js';
-import { getItem } from './storage';
+import { getItem, setItem } from './storage';
 
 export default function App({ $target }) {
   $target.className = styles.app;
 
   this.state = {
     isLoading: false,
-    documents: [],
+    documentList: getItem('documents', []),
   };
 
-  new SideMenu({
+  const sideMenu = new SideMenu({
     $target,
-    initialState: this.state.documents,
-    onDocumentAdd: () => {},
+    initialState: this.state.documentList,
+    onDocumentAdd: () => {
+      const newDocument = {
+        id: v4(),
+        title: '새로운 문서',
+        content: '',
+        documents: [],
+      };
+      this.setState({
+        ...this.state,
+        documentList: [...this.state.documentList, newDocument],
+      });
+
+      setItem('documents', this.state.documentList);
+      fetchRequests();
+    },
   });
 
   const mainContainer = new MainContainer({
@@ -23,6 +38,8 @@ export default function App({ $target }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
+
+    sideMenu.setState(this.state.documentList);
   };
 
   const fetchRequests = () => {
@@ -30,15 +47,16 @@ export default function App({ $target }) {
       ...this.state,
       isLoading: true,
     });
-    const documents = getItem('documents', []);
+    const documentList = getItem('documents', []);
 
     this.setState({
       ...this.state,
-      documents,
+      documentList,
       isLoading: false,
     });
   };
 
   fetchRequests();
-  console.log(this.state);
+
+  console.log(this.state.documentList);
 }
