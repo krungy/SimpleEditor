@@ -21,3 +21,8 @@
   outline: none;
   height: 90vh;
 }
+
+[contenteditable='true']:empty:before {
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}

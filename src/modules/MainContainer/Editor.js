@@ -1,35 +1,49 @@
 import styles from '../../assets/css/Editor.module.css';
 
-export default function Editor({ $target }) {
+export default function Editor({ $target, initialState, onEditing }) {
   const $editor = document.createElement('div');
   $editor.className = styles.editor;
-  $target.appendChild($editor);
+
+  $editor.innerHTML = `
+    <input class=${styles.editor_input} type='text' name='title' placeholder='제목을 입력하세요.' />
+    <div class=${styles.editor_textarea} name='content' contentEditable="true" placeholder='내용을 입력하세요.' spellcheck = "false"></div>
+  `;
+
+  this.state = initialState;
+
+  console.log(this.state);
+  this.setState = (nextState) => {
+    this.state = nextState;
+    this.render();
+  };
 
   this.render = () => {
-    $editor.innerHTML = `
-      <input class=${styles.editor_input} type='text' placeholder='제목을 입력하세요.' />
-      <textarea class=${styles.editor_textarea} placeholder='내용을 입력하세요.'></textarea>
-    `;
+    $target.innerHTML = ``;
     $target.appendChild($editor);
+
+    $editor.querySelector('[name=title]').value = this.state.title;
+    $editor.querySelector('[name=content]').innerHTML = this.state.content;
   };
 
   this.remove = () => {
     $editor.remove();
   };
 
-  // $editor.addEventListener('keyup', (e) => {
-  //   const { target } = e;
+  $editor.querySelector('[name=title]').addEventListener('input', (e) => {
+    const nextState = {
+      ...this.state,
+      title: e.target.value,
+    };
 
-  //   if (target.className === styles.editor_textarea) {
-  //     resize(target);
-  //   }
-  // });
+    onEditing(nextState, 0);
+  });
 
-  // $editor.addEventListener('keydown', (e) => {
-  //   const { target } = e;
+  $editor.querySelector('[name=content]').addEventListener('input', (e) => {
+    const nextState = {
+      ...this.state,
+      content: e.target.innerHTML,
+    };
 
-  //   if (target.className === styles.editor_textarea) {
-  //     resize(target);
-  //   }
-  // });
+    onEditing(nextState, 1000);
+  });
 }
