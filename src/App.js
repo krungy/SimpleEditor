@@ -30,10 +30,23 @@ export default function App({ $target }) {
       setItem('documents', this.state.documentList);
       fetchRequests();
     },
+    onDocumentDelete: (selectedId) => {
+      const newDocumentList = this.state.documentList.filter(
+        (item) => item.id !== selectedId,
+      );
+
+      this.setState({
+        ...this.state,
+        docuemntList: newDocumentList,
+      });
+      setItem('documents', newDocumentList);
+      fetchRequests();
+    },
   });
 
   const mainContainer = new MainContainer({
     $target,
+    // selectedDocument,
   });
 
   this.setState = (nextState) => {

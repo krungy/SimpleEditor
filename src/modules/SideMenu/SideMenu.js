@@ -1,7 +1,12 @@
 import styles from '../../assets/css/SideMenu.module.css';
 import DocumentList from './DocumentList';
 
-export default function SideMenu({ $target, initialState, onDocumentAdd }) {
+export default function SideMenu({
+  $target,
+  initialState,
+  onDocumentAdd,
+  onDocumentDelete,
+}) {
   const $sidemenu = document.createElement('div');
   $sidemenu.className = styles.sidemenu;
   $target.appendChild($sidemenu);
@@ -17,11 +22,11 @@ export default function SideMenu({ $target, initialState, onDocumentAdd }) {
     $target: $sidemenu,
     initialState: this.state,
     onDocumentAdd: () => onDocumentAdd(),
+    onDocumentDelete: (selectedId) => onDocumentDelete(selectedId),
   });
 
   this.setState = (nextState) => {
     this.state = nextState;
     documentList.setState(this.state);
   };
-  console.log(initialState);
 }

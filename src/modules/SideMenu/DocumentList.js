@@ -1,18 +1,20 @@
 import styles from '../../assets/css/DocumentList.module.css';
 
-export default function DocumentList({ $target, initialState, onDocumentAdd }) {
+export default function DocumentList({
+  $target,
+  initialState,
+  onDocumentAdd,
+  onDocumentDelete,
+}) {
   const $documentList = document.createElement('div');
   $target.appendChild($documentList);
 
   this.state = initialState;
-  console.log(this.state);
 
   this.setState = (nextState) => {
     this.state = nextState;
     this.render();
   };
-
-  console.log(this.state);
 
   this.render = () => {
     $documentList.innerHTML = `
@@ -24,7 +26,7 @@ export default function DocumentList({ $target, initialState, onDocumentAdd }) {
           <li class=${styles.list_item} data-id=${id}>
             ${title}
             <div class=${styles.item_buttonList}>
-              <button class=${styles.item_button}>-</button>
+              <button class=${styles.item_button} data-id="deleteDocument">-</button>
             </div>
           </li>
           
@@ -43,6 +45,11 @@ export default function DocumentList({ $target, initialState, onDocumentAdd }) {
   $documentList.addEventListener('click', (e) => {
     if (e.target.closest('button').dataset.id === 'newDocument') {
       onDocumentAdd();
+    }
+    if (e.target.closest('button').dataset.id === 'deleteDocument') {
+      const $documentTarget = e.target.closest('li').dataset.id;
+
+      onDocumentDelete($documentTarget);
     }
   });
 }
