@@ -37,6 +37,11 @@ export default function Editor({ $target, initialState, onEditing }) {
   let timer = null;
 
   $editor.querySelector('[name=title]').addEventListener('input', (e) => {
+    if (e.target.value.length > 24) {
+      alert('제목은 최대 24글자까지 작성이 가능합니다.');
+      e.target.value = e.target.value.slice(0, 24);
+    }
+
     if (timer !== null) {
       clearTimeout(timer);
     }
