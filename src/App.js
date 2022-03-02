@@ -104,6 +104,4 @@ export default function App({ $target }) {
   };
 
   fetchRequests();
-
-  console.log(this.state.documentList);
 }
