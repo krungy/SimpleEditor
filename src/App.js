@@ -54,31 +54,24 @@ export default function App({ $target }) {
     },
   });
 
-  let timer = null;
-
   const mainContainer = new MainContainer({
     $target,
     selectedDocument: this.state.selectedDocument,
-    onEditing: (post, time) => {
-      if (timer !== null) {
-        clearTimeout(timer);
-      }
-      timer = setTimeout(() => {
-        const findLocation = this.state.documentList.findIndex(
-          (item) => item.id === post.id,
-        );
+    onEditing: (post) => {
+      const findLocation = this.state.documentList.findIndex(
+        (item) => item.id === post.id,
+      );
 
-        const newDocumentList = Array.from(this.state.documentList);
-        newDocumentList[findLocation] = post;
+      const newDocumentList = Array.from(this.state.documentList);
+      newDocumentList[findLocation] = post;
 
-        this.setState({
-          ...this.state,
-          selectedDocument: post,
-          documentList: newDocumentList,
-        });
-        setItem('documents', newDocumentList);
-        fetchRequests();
-      }, time);
+      this.setState({
+        ...this.state,
+        selectedDocument: post,
+        documentList: newDocumentList,
+      });
+      setItem('documents', newDocumentList);
+      fetchRequests();
     },
   });
 

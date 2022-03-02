@@ -1,4 +1,5 @@
 import styles from '../../assets/css/Editor.module.css';
+import { focusContentEditableTextToEnd } from '../../utils/focusContentEditableTextToEnd';
 
 export default function Editor({ $target, initialState, onEditing }) {
   const $editor = document.createElement('div');
@@ -29,21 +30,35 @@ export default function Editor({ $target, initialState, onEditing }) {
     $editor.remove();
   };
 
-  $editor.querySelector('[name=title]').addEventListener('input', (e) => {
-    const nextState = {
-      ...this.state,
-      title: e.target.value,
-    };
+  let timer = null;
 
-    onEditing(nextState, 0);
+  $editor.querySelector('[name=title]').addEventListener('input', (e) => {
+    if (timer !== null) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      const nextState = {
+        ...this.state,
+        title: e.target.value,
+      };
+
+      onEditing(nextState);
+      focusContentEditableTextToEnd(e.target);
+    }, 1000);
   });
 
   $editor.querySelector('[name=content]').addEventListener('input', (e) => {
-    const nextState = {
-      ...this.state,
-      content: e.target.innerHTML,
-    };
+    if (timer !== null) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      const nextState = {
+        ...this.state,
+        content: e.target.innerHTML,
+      };
 
-    onEditing(nextState, 1000);
+      onEditing(nextState);
+      focusContentEditableTextToEnd(e.target);
+    }, 2000);
   });
 }
