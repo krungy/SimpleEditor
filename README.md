@@ -2,7 +2,8 @@
 
 ## 🚀 배포
 
-🔗 netlify: 
+🔗 netlify: https://sharp-morse-9e9cff.netlify.app
+
 <br />
 
 ## 🪄 프로젝트 실행 방법
