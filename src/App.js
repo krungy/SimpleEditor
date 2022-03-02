@@ -25,6 +25,7 @@ export default function App({ $target }) {
       };
       this.setState({
         ...this.state,
+        selectedDocument: newDocument,
         documentList: [...this.state.documentList, newDocument],
       });
 
@@ -38,8 +39,14 @@ export default function App({ $target }) {
 
       this.setState({
         ...this.state,
+        selectedDocument:
+          !this.state.selectedDocument ||
+          this.state.selectedDocument.id === selectedId
+            ? null
+            : this.state.selectedDocument,
         docuemntList: newDocumentList,
       });
+
       setItem('documents', newDocumentList);
       fetchRequests();
     },
