@@ -1,6 +1,7 @@
 .editor {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .editor_input {
@@ -25,4 +26,10 @@
 [contenteditable='true']:empty:before {
   content: attr(placeholder);
   display: block; /* For Firefox */
+}
+
+.editor_save {
+  position: absolute;
+  right: 12px;
+  top: 0;
 }

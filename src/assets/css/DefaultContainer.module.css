@@ -1,0 +1,12 @@
+.default_container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.default_title {
+  font-size: 36px;
+}

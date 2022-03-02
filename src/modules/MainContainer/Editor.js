@@ -3,12 +3,16 @@ import { focusContentEditableTextToEnd } from '../../utils/focusContentEditableT
 
 export default function Editor({ $target, initialState, onEditing }) {
   const $editor = document.createElement('div');
+  const $saveAlert = document.createElement('div');
   $editor.className = styles.editor;
+  $saveAlert.className = styles.editor_save;
 
   $editor.innerHTML = `
     <input class=${styles.editor_input} type='text' name='title' placeholder='제목을 입력하세요.' />
     <div class=${styles.editor_textarea} name='content' contentEditable="true" placeholder='내용을 입력하세요.' spellcheck = "false"></div>
   `;
+
+  $saveAlert.innerHTML = `<span>저장되었습니다.</span>`;
 
   this.state = initialState;
 
@@ -37,6 +41,7 @@ export default function Editor({ $target, initialState, onEditing }) {
       clearTimeout(timer);
     }
     timer = setTimeout(() => {
+      $editor.appendChild($saveAlert);
       const nextState = {
         ...this.state,
         title: e.target.value,
@@ -44,6 +49,9 @@ export default function Editor({ $target, initialState, onEditing }) {
 
       onEditing(nextState);
       focusContentEditableTextToEnd(e.target);
+      setTimeout(() => {
+        $saveAlert.remove();
+      }, 1000);
     }, 1000);
   });
 
@@ -52,6 +60,7 @@ export default function Editor({ $target, initialState, onEditing }) {
       clearTimeout(timer);
     }
     timer = setTimeout(() => {
+      $editor.appendChild($saveAlert);
       const nextState = {
         ...this.state,
         content: e.target.innerHTML,
@@ -59,6 +68,9 @@ export default function Editor({ $target, initialState, onEditing }) {
 
       onEditing(nextState);
       focusContentEditableTextToEnd(e.target);
+      setTimeout(() => {
+        $saveAlert.remove();
+      }, 1000);
     }, 2000);
   });
 }
