@@ -19,7 +19,7 @@ export default function App({ $target }) {
     onDocumentAdd: () => {
       const newDocument = {
         id: v4(),
-        title: '새로운 문서',
+        title: '',
         content: '',
         documents: [],
       };
