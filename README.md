@@ -1,4 +1,4 @@
-# notion_clone
+# SimpleEditor
 
 ## 🚀 배포
 
@@ -10,7 +10,7 @@
 
 1. git clone하여 프로젝트를 내려받습니다.
    ```bash
-   git clone https://github.com/krungy/notion_clone.git
+   git clone https://github.com/krungy/SimpleEditor.git
    ```
 2. 아래 커맨드로 패키지를 설치합니다.
    ```bash
